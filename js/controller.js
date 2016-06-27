@@ -1,6 +1,8 @@
 if(!fbSearch.controller){
 	fbSearch.controller = (function(){
 
+		/*Controller layer to handle all interaction
+		from UI and update Model*/
 		function Controller(model, view){
 			this.model = model;
 			this.view = view;
@@ -14,6 +16,7 @@ if(!fbSearch.controller){
 			}
 		}
 
+		/*Event handler for search*/
 		Controller.prototype.handleSearch = function(query, context, bPageId, sortObj){
 			context.sQuery = query;
 			var store = context.model.findStorage(query);
@@ -24,17 +27,17 @@ if(!fbSearch.controller){
 			}			
 		}
 
+		/*callback to handle search results from FB*/
 		Controller.prototype.handleSearchResults = function(data, sortObj){
 			if(data && data.data && data.data.length){
 				var len = data.data.length;
-				//for(var j = 0 ; j < len ; j++){
-					//fbSearch.utils.FBPageDetails();
+
 				var sortField = sortObj ? sortObj.field : "likes";
 				var sortOrder = sortObj ? sortObj.sortOrder : "desc";
 				fbSearch.utils.sortData(sortField, data.data, sortOrder);
 				this.view.showResults(data.data, this);
 				this.model.createStorage(data, this.sQuery);
-				//}
+
 			}else if(data && data.hasOwnProperty("link")){
 				this.view.showResults(data, this);
 				this.model.createStorage(data, this.sQuery);
@@ -43,11 +46,13 @@ if(!fbSearch.controller){
 			}
 		}
 
+		/*default event handler on page load to search for Projectplace page*/
 		Controller.prototype.fireSearchOnLoad = function(context){
 			context.sQuery = "Projectplace";
 			fbSearch.utils.FBPageSearch("Projectplace", context.handleSearchResults, context);
 		}
 
+		/*toggle between favourite and un-favourite icon*/
 		Controller.prototype.toggleFavIcon = function(id, context){
 			if(context.model.checkFavourite(id)){
 				context.model.removeFavItem(id, context);
@@ -56,10 +61,12 @@ if(!fbSearch.controller){
 			}
 		}
 
+		/*reflect the toggle state for favourite icon in UI*/
 		Controller.prototype.toggleFavState = function(id, state){
 			this.view.toggleFavState(id, state);
 		}
 
+		/*Hanlder to display my favourites*/
 		Controller.prototype.showFavourites = function(state, context){
 			if(state){
 				var store = context.model.getLocalStorage();
