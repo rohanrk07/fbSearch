@@ -1,5 +1,6 @@
 if(!fbSearch.view){
     fbSearch.view = (function () {
+        /*reflects the UI*/
         function View(oTemplate) {
             this.oTemplate = oTemplate;
             /* Constants */
@@ -22,6 +23,7 @@ if(!fbSearch.view){
             return this.$searchInput.value;
         };
         
+        /*bind events*/
         View.prototype.bind = function (sEvent, fnHandler, context, $el) {
             var self = this;
             switch (sEvent) {
@@ -126,15 +128,11 @@ if(!fbSearch.view){
             //this.$searchResultContainer.innerHTML = sHtml;
         }
 
+        /*Display results*/
         View.prototype.getPageHTML = function(data, bPageId, context){
             var template = this.oTemplate.pageTemplate;
             var brandName = data.global_brand_page_name;
             var query = this.getQueryString().toLowerCase();
-            /*if(!bPageId){
-                if(brandName.toLowerCase().indexOf(query) == -1 ){
-                    return;
-                }
-            }*/
             
             var imgSrc = data.cover  && data.cover.source? data.cover.source: "img/no-preview.jpeg";
             var category = data.category;
