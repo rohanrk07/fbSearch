@@ -169,6 +169,9 @@ if(!fbSearch.view){
                 template = template.replace("{{websiteClass}}", "hide");
                 template = template.replace("{{dividerClass}}", "hide");
             }
+            if(this.showFav){
+                template = template.replace("{{show-fav}}", "show-fav");
+            }
             
             template = template.replace("{{fblink}}", fblink);
             template = template.replace("{{likeCount}}", likes);
@@ -181,16 +184,23 @@ if(!fbSearch.view){
             }else{
                 this.$searchResultContainer.appendChild(div);
             }
-            var $favIcon = window.document.querySelector("span[data-id='"+id+"']");
+            if(this.showFav){
+                var $favIcon = window.document.querySelector(".show-fav[data-id='"+id+"']");
+            }else{
+                var $favIcon = window.document.querySelector("span[data-id='"+id+"']");
+            }
             this.bind("favIconClick", context.toggleFavIcon, context, $favIcon);
         }
 
         View.prototype.toggleFavState = function(id, state){
+            var $elFav = window.document.querySelector(".show-fav[data-id='"+id+"'] img");
             var $el = window.document.querySelector("span[data-id='"+id+"'] img");
             if(state){
                 $el.setAttribute("src" , "img/heart-"+state+".png");
+                $elFav ? $elFav.setAttribute("src" , "img/heart-"+state+".png") : "";
             }else{
                 $el.setAttribute("src", "img/heart.png");
+                $elFav ? $elFav.setAttribute("src", "img/heart.png") : "";
             }
         }
         
