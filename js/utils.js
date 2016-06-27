@@ -1,12 +1,13 @@
 var fbSearch = {}; //Global object
 if(!fbSearch.utils){
+	/*Utility to call FB search Graph API*/
 	fbSearch.utils = (function(){
 
 		var sAppKey = "1513453565582386",
-            sAppSecretKey = "a877266262b417696385aa55b92e959c",
-            sAccessToken = sAppKey + "|" + sAppSecretKey,
-            counter = 0,
-            fields = "global_brand_page_name,category,location,about,cover,link,website,likes";
+            		sAppSecretKey = "a877266262b417696385aa55b92e959c",
+	            	sAccessToken = sAppKey + "|" + sAppSecretKey,
+        	    	counter = 0,
+	            	fields = "global_brand_page_name,category,location,about,cover,link,website,likes";
 
         function FBPageSearch(query, fnCallback, context, bPageId){
         	var sCallback = "callback"+ counter++;
@@ -20,8 +21,9 @@ if(!fbSearch.utils){
         	addScript(sUrl, sCallback, context, fnCallback);
         }
 
+        /*Inject script with callback*/
         function addScript(sUrl, sCallback, context, fnCallback){
-        	window[sCallback] = function(data){
+		window[sCallback] = function(data){
         		fnCallback.call(context, data);
         		window.document.querySelector('#' + sCallback).remove();
         	}
@@ -32,6 +34,7 @@ if(!fbSearch.utils){
             oHead.appendChild(oScript);
         }
 
+        /*sorting utility*/
         function sortData(field, data, sortOrder){
             data.sort(function(a, b){
                 if(sortOrder === "desc"){
