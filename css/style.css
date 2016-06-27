@@ -137,3 +137,13 @@ body{
     vertical-align: super;
     font-size: 13px;
 }
+
+@media (max-width: 767px){
+    .input-group{
+        width : 100%;
+    }
+    .search-results, .fav-container{
+        width : 100%;
+        padding: 2% 0%;
+    }
+}
