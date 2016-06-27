@@ -1,5 +1,6 @@
 if(!fbSearch.template){
 	fbSearch.template = (function(){
+		/*HTML template for search result block*/
 		function Template(){
 			this.pageTemplate = "<div class=\"container\" data-id={{pageId}}>"+
 							"<div class=\"lft\">"+
