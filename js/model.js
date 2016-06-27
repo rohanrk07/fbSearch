@@ -1,6 +1,7 @@
 if(!fbSearch.model){
 	fbSearch.model = (function(){
 
+		/*Storage for all searches and a localstorage for my favouries*/
 		function Model(storage){
 			this.oStorage = {};
 			this.setLocalStorage = function(store){
